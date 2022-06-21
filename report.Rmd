@@ -1,0 +1,53 @@
+---
+title: "QC report"
+output: pdf_document
+classoption: landscape
+papersize: a3
+params:
+  sex: NULL
+  detail: NULL
+  ancestry: NULL
+  coverage: NULL
+  cov_plot: NULL
+  relatedness_mat: NULL
+  pca: NULL
+---
+\fontsize{11}{22}
+\selectfont
+
+```{r nomessages, echo = FALSE}
+# set some default options for chunks
+knitr::opts_chunk$set(
+  warning = FALSE,   # avoid warnings and messages in the output
+  message = FALSE)
+```
+
+
+```{r, message=FALSE, echo = FALSE}
+knitr::kable(params$detail, caption = "Detailed metrics")
+```
+
+```{r, message=FALSE, echo = FALSE}
+knitr::kable(params$sex, caption = "Sex inference")
+```
+
+```{r, message=FALSE, echo = FALSE}
+knitr::kable(params$ancestry, caption = "Ancestry prediction Peddy")
+```
+
+PCA plot
+```{r fig.width=50, message=FALSE, echo = FALSE}
+knitr::include_graphics(params$pca)
+```
+
+```{r message=FALSE, echo = FALSE}
+knitr::kable(params$coverage, caption = "Coverage metrics")
+```
+
+```{r message=FALSE, echo = FALSE, fig.width=12,fig.height=12}
+params$cov_plot  + ggtitle("Coverage plot")
+```
+
+```{r message=FALSE, echo = FALSE, fig.width=12,fig.height=12}
+params$relatedness_mat + ggtitle("Relatedness matrix")
+```
